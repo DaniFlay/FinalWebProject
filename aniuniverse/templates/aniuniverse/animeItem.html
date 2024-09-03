@@ -1,0 +1,150 @@
+{%extends "aniuniverse/layout.html"%}
+{% load static custom_tags %}
+{%block body %}
+<div id="animeItemPage">
+    <div id="animeItemTitle">
+        <h1>{{animeItem.title}}</h1>
+    </div>
+    <div id="animeItemTitleJ">
+        <h2>{{animeItem.title_japanese}}</h2>
+    </div>
+    <div id="animeItemMainInfo">
+        <div id="animeItemScore">
+            <span>Score</span>
+            <span>{{animeItem.score}}</span>
+        </div>
+        <div id="animeItemRank">
+            <span>Rating</span>
+            <span>{{animeItem.rating}}</span>
+        </div>
+        <div id="animeItemYears">
+            <span>Date</span>
+            <span>{{animeItem.aired_from}}-{%if animeItem.aired_to%}{{animeItem.aired_to}}{%else%}?{%endif%}</span>
+        </div>
+        <div id="animeItemFavorites">
+            <span>Favorites</span>
+            <span>{{animeItem.favorites}}</span>
+        </div>
+    </div>
+    <div id="animeItemImSynopsis">
+        <div id="animeItemDivImage">
+            <img src="{{animeItem.main_picture}}" class="imageList">
+        </div>
+        <div id="animeItemDivSynopsis">
+            <h3>Synopsis</h3>
+            <p>{{animeItem.synopsis}}</p>
+            <div style="display: flex; flex-direction: column;">
+                <div class="message"></div>
+                <form id="itemUpdateFormAnime">
+                    {%csrf_token %}
+                    <label>Status: </label>
+                    <select name="status" id="status">
+                        {%status_range as statuses%}
+                        {%for status in statuses%}
+                        {%if status == animeStats.status%}
+                        <option selected value="{{status}}">{{status}}</option>
+                        {%else%}
+                        <option value="{{status}}">{{status}}</option>
+                        {%endif%}
+                        {%endfor%}
+                    </select>
+                    <label>Episodes: </label>
+                    {%if animeItem.episodes%}
+                    <select name="episodes" id="episodes" >
+                        {%for i in animeItem.episodes|custom_range%}
+                        {%if i is animeStats.episodes%}
+                        <option selected value="{{i}}">{{i}}</option>
+                        {%else%}
+                        <option value="{{i}}">{{i}}</option>
+                        {%endif%}
+                        {%endfor%}
+                    </select>
+                    {%else%}
+                    {%if animeStats.episodes%}
+                    <input type="text" id="episodes" size="5" value="{{animeStats.epsiodes}}">
+                    {%else%}
+                    <input type="text" id="episodes" size="5" value="0">
+                    {%endif%}
+                    <span>/?</span>
+                    <input type="button" id="add" value="+">
+                    {%endif%}
+                    <label>Score: </label>
+                    <select name="score" id="score">
+                        {% for i in 10|custom_range %}
+                            <option value="{{ i }}" {% if i == animeStats.score %}selected{% endif %}>{{ i }}</option>
+                         {% endfor %}
+                    </select>
+                    <input type="submit" value="Update" id="update">
+                    {%if favorite is True%}
+                    <input type="button" value="Remove from favorites" id="addFav">
+                    {%else%}
+                    <input type="button" value="Add to favorites" id='addFav'>
+                    {%endif%}
+                </form>
+                
+            </div>
+        </div>
+    </div>
+    <div id= "animeItemAdditionalInformation">
+        <div id="animeItemDescription">
+            <span class="spanName">Episodes: </span><span>{{animeItem.episodes}}</span>
+            <span class="spanName">Duration: </span><span>{{animeItem.duration}}</span>
+            <span class="spanName">Type: </span><span>{{animeItem.animetype}}</span>
+        </div>
+        <div id="animeItemTime">
+            <span class="spanName">Premiered season: </span><span>{%if animeItem.premiered_season%}{{animeItem.premiered_season}}{%else%}?{%endif%}</span>
+            <span class="spanName">Premiered year: </span><span>{%if animeItem.premiered_year%}{{animeItem.premiered_year}}{%else%}?{%endif%}</span>
+            <span class="spanName">Broadcast day: </span><span>{%if animeItem.broadcast_day%}{{animeItem.broadcast_day}}{%else%}?{%endif%}</span>
+            <span class="spanName">Broadcast time: </span><span>{%if animeItem.broadcast_time%}{{animeItem.broadcast_time}}{%else%}?{%endif%}</span>
+        </div>
+        <div id="animeItemGenre">
+            <span class="spanName">Genres: </span><span>{%if animeItem.genres%}{{animeItem.genres}}{%else%}?{%endif%}</span>
+            <span class="spanName">Themes: </span><span>{%if animeItem.themes%}{{animeItem.themes}}{%else%}?{%endif%}</span>
+            <span class="spanName">Demographics: </span><span>{%if animeItem.demographics%}{{animeItem.demographics}}{%else%}?{%endif%}</span>
+        </div>
+        <div id="animeItemCreators">
+            <span class="spanName">Studios: </span><span>{%if animeItem.studios%}{{animeItem.studios}}{%else%}?{%endif%}</span>
+            <span class="spanName">Licensors: </span><span>{%if animeItem.licensors%}{{animeItem.licensors}}{%else%}?{%endif%}</span>
+            <span class="spanName">Producers: </span><span>{%if animeItem.producers%}{{animeItem.producers}}{%else%}?{%endif%}</span>
+        </div>
+    </div>
+    {%if link%}
+    <div id="animeItemTrailer">
+        <iframe width="500px" height="300px" src="{{link}}">
+        </iframe>
+    </div>
+    {% endif %}
+    {%if similarTitles%}
+    <div class="topDiv">
+        <span>Similar titles</span>
+        <ul>
+            {% for s in similarTitles%}
+            <li>
+                <a href="{% url 'animeItem' s.anime_id%}">
+                    <div class="item" data-id="{{s.anime_id}}">
+                        <img src="{{s.main_picture}}" class="imageList">
+                        <a>{{s.title}}</a>
+                    </div>
+                </a>
+            </li>
+            {% endfor %}
+        </ul>
+    </div>
+    {% endif %}
+    <div class="topDiv">
+        <span>You might like</span>
+        <ul>
+            {% for s in similarAnime%}
+            <li>
+                <a href="{% url 'animeItem' s.anime_id%}">
+                    <div class="item" data-id="{{s.anime_id}}">
+                        <img src="{{s.main_picture}}" class="imageList">
+                        <a>{{s.title}}</a>
+                    </div>
+                </a>
+            </li>
+            {% endfor %}
+        </ul>
+    </div>
+</div>
+{%endblock%}

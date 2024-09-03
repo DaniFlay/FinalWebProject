@@ -1,0 +1,110 @@
+{%extends "aniuniverse/layout.html"%}
+{%load static%}
+{%block body%}
+<div id="topAnime">
+    <div id="topTabs">
+        <ul>
+            <li class="selected">
+                <a href="{% url 'topAnime' 'all'%}">All anime</a>
+            </li>
+            <li>
+                <a href="{% url 'topAnime' 'Airing'%}">Top airing</a>
+            </li>
+            <li>
+                <a href="{%url 'topAnime' 'Upcoming'%}">Top Upcoming</a>
+            </li>
+            <li>
+                <a href="{% url 'topAnime' 'TV'%}" >Top Series</a>
+            </li>
+            <li>
+                <a href="{% url 'topAnime' 'Movie'%}">Top Movies</a>
+            </li>
+            <li>
+                <a href="{% url 'topAnime' 'OVA'%}">Top OVAs</a>
+            </li>
+            <li>
+                <a href="{% url 'topAnime' 'ONA'%}">Top ONAs</a>
+            </li>
+            <li>
+                <a href="{% url 'topAnime' 'Special'%}">Top Special</a>
+            </li>
+            <li>
+                <a href="{% url 'topAnime' 'Popular'%}">Most Popular</a>
+            </li>
+            <li>
+                <a href="{% url 'topAnime' 'Favorites'%}">Most Favorites</a>
+            </li>
+        </ul>
+    </div>
+    <div id="rankingAnime" >
+        <div id="tableNames">
+            <div style="width: 10%;">
+                <a>Rating</a>
+            </div>
+            <div style="width: 70%;">
+                <a>Title</a>
+            </div>
+            <div style="width: 20%;">
+                <a>Score</a>
+            </div>
+        </div>
+        <ol class="orderedList">
+            {%for anime in animes%}
+            <li id="rankItem">
+                <div class="number" style="width: 10%; font-weight: bold;">
+                    {{forloop.counter|add:animes.start_index|add:"-1"}}
+                </div>
+                <div class="title" style="width: 70%;">
+                    <div>
+                        {%if anime.main_picture%}
+                        <img src="{{anime.main_picture}}" alt='Not Found 404' width="50px">
+                        {%else%}
+                        <img alt="Not Found 404" width="50px">
+                        {%endif%}
+                    </div>
+                    <div>
+                        <a href="{% url 'animeItem' anime.anime_id%}" style="font-weight: bold; color: darkblue;">
+                            {{anime.title}}
+                        </a>
+                        <a style="font-size: 11px;">
+                            {%if upcoming is True%}
+                            {%if anime.aired_from%}
+                            {{anime.aired_from}}
+                            {%else%}Unknown release date
+                            {%endif%}
+                            {%else%}
+                            {{anime.aired_from}}-
+                            {%if anime.aired_to%}
+                            {{anime.aired_to}}
+                            {%else%}?
+                        </a>
+                            {%endif%}
+                            {%endif%}
+                            <a style="font-size: 11px;">
+                                {{anime.animetype}}
+                            </a>
+                            <a style="font-size: 11px;">
+                                {{anime.members}} members
+                            </a>
+                        </div>
+                    </div>
+                <div style="width: 20%; align-items: center; display:flex; justify-content: center;">
+                    <a style="font-weight: bold;">{{anime.score}}</a>
+                </div>
+            </li>
+            {% endfor%}
+        </ol>
+    </div>
+    <div id="paginator">
+    {%if animes.has_previous%}
+        <a href="?page=1">&laquo First</a>
+        <a href="?page={{animes.previous_page_number}}">Previous</a>
+    {%endif%}
+    <span class="current">Page {{animes.number}} of {{animes.paginator.num_pages}}</span>
+    {%if animes.has_next%}
+        <a href="?page={{animes.next_page_number}}">Next</a>
+        <a href="?page={{animes.paginator.num_pages}}">Last &raquo</a>
+    {% endif%}
+    </div>
+</div>
+{%endblock%}

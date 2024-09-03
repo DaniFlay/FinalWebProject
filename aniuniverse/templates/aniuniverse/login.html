@@ -1,0 +1,25 @@
+{%extends "aniuniverse/layout.html"%}
+{%block body%}
+<div style="display: flex; align-items: center;justify-content: center; flex-direction: column; height: 70vh;">
+    <div id="loginForm">
+        <div id="loginTitle">
+            <h2>
+                Login
+            </h2>
+            {%if error%}
+            <p class="errorMessage">{{error}}</p>
+            {%endif %}
+        </div>
+        <div id="loginFields">
+            <form method="POST" name="login">
+                {% csrf_token %}
+                <label for="username">Username:</label>
+                <input type="text" id="username" name="username" required>
+                <label for="password">Password:</label>
+                <input type="password" id="password" name="password" required>
+                <button type="submit">Login</button>
+            </form>
+        </div>
+    </div>
+</div>
+{%endblock%}

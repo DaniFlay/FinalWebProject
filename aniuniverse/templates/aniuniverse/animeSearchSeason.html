@@ -1,0 +1,24 @@
+{%extends 'aniuniverse/layout.html'%}
+{%block body%}
+    <div id="animeSeasonForm">
+        <form method="post" action="animeSeasonResults">
+            {% csrf_token %}
+            <label for="year">Select Year:</label>
+            <select id="year" name="year">
+                <option value="all">All Years</option>
+                {% for year in years %}
+                <option value="{{ year }}">{{ year }}</option>
+                {% endfor %}
+            </select>
+            </select>
+            <label for="season">Select Season:</label>
+            <select class="season" name="season">
+                <option value="all">All Seasons</option>
+                {% for season in seasons %}
+                <option value="{{ season }}">{{ season }}</option>
+                {% endfor %}
+            </select>
+            <input type="submit" value="Search" class="search">
+        </form>
+    </div>
+{%endblock%}

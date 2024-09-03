@@ -1,0 +1,117 @@
+{%extends "aniuniverse/layout.html"%}
+{% load static custom_tags %}
+{%block body %}
+<div id="animeItemPage">
+    <div id="animeItemTitle">
+        <h1>{{mangaItem.title}}</h1>
+    </div>
+    <div id="animeItemTitleJ">
+        <h2>{{mangaItem.title_japanese}}</h2>
+    </div>
+    <div id="animeItemMainInfo">
+        <div id="animeItemScore">
+            <span>Score</span>
+            <span>{{mangaItem.score}}</span>
+        </div>
+        <div id="animeItemYears">
+            <span>Date</span>
+            <span>{{mangaItem.published_from}}-{%if mangaItem.published_to%}{{mangaItem.published_to}}{%else%}?{%endif%}</span>
+        </div>
+        <div id="animeItemFavorites">
+            <span>Favorites</span>
+            <span>{{mangaItem.favorites}}</span>
+        </div>
+    </div>
+    <div id="animeItemImSynopsis">
+        <div id="animeItemDivImage">
+            <img src="{{mangaItem.main_picture}}" class="imageList">
+        </div>
+        <div id="animeItemDivSynopsis">
+            <h3>Synopsis</h3>
+            <p>{{mangaItem.synopsis}}</p>
+            <div style="display: flex; flex-direction: column;">
+                <div class="message"></div>
+                <form id="itemUpdateFormManga">
+                    {%csrf_token%}
+                    <label>Status: </label>
+                    <select name="status" id="status">
+                        {%status_range2 as statuses%}
+                        {%for status in statuses%}
+                        {%if status == mangaStats.status%}
+                        <option selected value="{{status}}">{{status}}</option>
+                        {%else%}
+                        <option value="{{status}}">{{status}}</option>
+                        {%endif%}
+                        {%endfor%}
+                    </select>
+                    <label>Chapters: </label>
+                    {%if mangaItem.chapters%}
+                    <select name="chapters" id="chapters">
+                        {%for i in mangaItem.chapters|custom_range%}
+                        {%if i is mangaStats.chapters%}
+                        <option selected value="{{i}}">{{i}}</option>
+                        {%else%}
+                        <option value="{{i}}">{{i}}</option>
+                        {%endif%}
+                        {%endfor%}
+                    </select>
+                    {%else%}
+                    {%if mangaStats.chapters%}
+                    <input type="text" id="chapters" size="5" value="{{mangaStats.chapters}}">
+                    {%else%}
+                    <input type="text" id="chapters" size="5" value="0">
+                    {%endif%}
+                    <span>/?</span>
+                    <input type="button" id="add" value="+">
+                    {%endif%}
+                    <label>Score: </label>
+                    <select name="score" id="score">
+                        {%for i in 10|custom_range%}
+                        {%if i == mangaStats.score%}
+                        <option selected value="{{i}}">{{i}}</option>
+                        {%else%}
+                        <option value="{{i}}">{{i}}</option>
+                        {%endif%}
+                        {%endfor%}
+                    </select>
+                    <input type="submit" value="Update" id="update">
+                    {%if favorite is True%}
+                    <input type="button" value="Remove from favorites" id="addFav">
+                    {%else%}
+                    <input type="button" value="Add to favorites" id='addFav'>
+                    {%endif%}
+                </form>
+            </div>
+        </div>
+    </div>
+    <div id= "animeItemAdditionalInformation">
+        <div id="animeItemDescription">
+            <span class="spanName">Chapters: </span><span>{{mangaItem.chapters}}</span>
+            <span class="spanName">Volumes: </span><span>{{mangaItem.volumes}}</span>
+            <span class="spanName">Type: </span><span>{{mangaItem.mangatype}}</span>
+            <span class="spanName">State: </span><span>{{mangaItem.state}}</span>
+        </div>
+        <div id="animeItemGenre">
+            <span class="spanName">Genres: </span><span>{%if mangaItem.genres%}{{mangaItem.genres}}{%else%}?{%endif%}</span>
+            <span class="spanName">Themes: </span><span>{%if mangaItem.themes%}{{mangaItem.themes}}{%else%}?{%endif%}</span>
+            <span class="spanName">Demographics: </span><span>{%if mangaItem.demographics%}{{mangaItem.demographics}}{%else%}?{%endif%}</span>
+            <span class="spanName">Demographics: </span><span>{%if mangaItem.authors%}{{mangaItem.authors}}{%else%}?{%endif%}</span>
+        </div>
+    </div>
+    <div class="topDiv">
+        <span>You might like</span>
+        <ul>
+            {% for s in similarManga%}
+            <li>
+                <a href="{% url 'mangaItem' s.manga_id%}">
+                    <div class="item" data-id="{{s.manga_id}}">
+                        <img src="{{s.main_picture}}" class="imageList">
+                        <a>{{s.title}}</a>
+                    </div>
+                </a>
+            </li>
+            {% endfor %}
+        </ul>
+    </div>
+</div>
+{%endblock%}

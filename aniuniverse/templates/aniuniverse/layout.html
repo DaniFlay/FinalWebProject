@@ -1,0 +1,65 @@
+{%load static %}
+{% load static custom_tags %}
+<!DOCTYPE html>
+<html lang="eng">
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta name="csrf-token" content="{{ csrf_token }}">
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+        <link href="{% static 'aniuniverse/styles.css' %}" rel="stylesheet">
+        <script src="{% static 'aniuniverse/aniuniverse.js' %}"></script>
+    </head>
+    <body>
+        <div id="headerMenu">
+            <ul id="headerElements">
+                <li class="tab">
+                    <a href="{% url 'home' %}">Home</a>
+                </li>
+                <li class="tab">
+                    <a>Anime</a>
+                    <ul>
+                        <li>
+                            <a href="{% url 'searchAnime'%}">Search anime</a>
+                        </li>
+                        <li>
+                            <a href="{% url 'topAnime' 'all'%}">Top anime</a>
+                        </li>
+                        <li>
+                            <a href="{%url 'animeSeason' %}">Search by seasons</a>
+                        </li>
+                    </ul>
+                </li>
+                <li class="tab">
+                    <a >Manga</a>
+                    <ul>
+                        <li>
+                            <a href="{% url 'searchManga'%}">Search manga</a>
+                        </li>
+                        <li>
+                            <a href="{% url 'topManga' 'all'%}">Top manga</a>
+                        </li>
+                    </ul>
+                </li>
+                {%if user.is_authenticated %}
+                <li class="tab">
+                    <a href="{%url 'profile' request.user.username%}">Profile</a>
+                </li>
+                <li class="tab">
+                    <a href="{%url 'logout' %}">Logout</a>
+                </li>
+                {% else %}
+                <li class="tab">
+                    <a href="{% url 'login' %}">Login</a>
+                </li>
+                <li class="tab">
+                    <a href="{% url 'register' %}">Register</a>
+                </li>
+                {% endif %}
+            </ul>
+        </div>
+        
+        {%block body%}
+
+        {% endblock %}
+    </body>
+</html>

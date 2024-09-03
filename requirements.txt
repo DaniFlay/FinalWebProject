@@ -1,0 +1,2 @@
+The bcrypt library must be installed before using the application, by using the command pip install bcrypt
+Also a database animedb must be installed before using the application, which can be created in MySql workbench, root, database name, user and password are inside the settings.py file

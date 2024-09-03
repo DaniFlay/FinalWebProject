@@ -1,0 +1,321 @@
+{%extends "aniuniverse/layout.html"%}
+{%block body%}
+<div id="animeSearch" style="background-color: #96b585; border-radius: 5px; padding: 1%;">
+    <h3 style="font-family: fantasy; ">Anime Search</h3>
+    <form id="animeSearchForm" method="post" action="animeTitleResults">
+        {% csrf_token %}
+        <input type="search" name="title" placeholder="Type a title" class="searchField">
+        <input type="submit" value="Search">
+    </form>
+    <div>
+        <div>
+            <label>Search by Type</label>
+        </div>
+        <div class="searchItems">
+            <div>
+            <div>
+                <a href="{% url 'search' 'Anime' 'type' 'Movie'%}">Movie</a>
+            </div>
+            <div>
+                <a href="{% url 'search' 'Anime' 'type' 'Music'%}">Music</a>
+            </div>
+            <div>
+                <a href="{% url 'search' 'Anime' 'type' 'ONA'%}">ONA</a>
+            </div>
+            <div>
+                <a href="{% url 'search' 'Anime' 'type' 'OVA'%}">OVA</a>
+            </div>
+            <div>
+                <a href="{% url 'search' 'Anime' 'type' 'Special'%}">Special</a>
+            </div>
+            </div>
+            <div>
+                <div>
+                <a href="{% url 'search' 'Anime' 'type' 'TV'%}">TV</a>
+            </div>
+            </div>
+        </div>
+    </div>
+    <div>
+        <div>
+            <label>Search by Genre</label>
+        </div>
+        <div class="searchItems">
+            <div>
+                <div>
+                    <a href="{% url 'search' 'Anime' 'genre' 'Action'%}">Action</a>
+                </div>
+                <div>
+                    <a href="{% url 'search' 'Anime' 'genre' 'Adventure'%}">Adventure</a>
+                </div>
+                <div>
+                    <a href="{% url 'search' 'Anime' 'genre' 'Avant Garde'%}">Avant Garde</a>
+                </div>
+                <div>
+                    <a href="{% url 'search' 'Anime' 'genre' 'Award Winning'%}">Award Winning</a>
+                </div>
+                <div>
+                    <a href="{% url 'search' 'Anime' 'genre' 'Boys Love'%}">Boys Love</a>
+                </div>
+            </div>
+            <div>
+                <div>
+                    <a href="{% url 'search' 'Anime' 'genre' 'Comedy'%}">Comedy</a>
+                </div>
+                <div>
+                    <a href="{% url 'search' 'Anime' 'genre' 'Drama'%}">Drama</a>
+                </div>
+                <div>
+                    <a href="{% url 'search' 'Anime' 'genre' 'Ecchi'%}">Ecchi</a>
+                </div>
+                <div>
+                    <a href="{% url 'search' 'Anime' 'genre' 'Erotica'%}">Erotica</a>
+                </div>
+                <div>
+                    <a href="{% url 'search' 'Anime' 'genre' 'Fantasy'%}">Fantasy</a>
+                </div>
+            </div>
+            <div>
+                <div>
+                    <a href="{% url 'search' 'Anime' 'genre' 'Girls Love'%}">Girls Love</a>
+                </div>
+                <div>
+                    <a href="{% url 'search' 'Anime' 'genre' 'Gourmet'%}">Gourmet</a>
+                </div>
+                <div>
+                    <a href="{% url 'search' 'Anime' 'genre' 'Hentai'%}">Hentai</a>
+                </div>
+                <div>
+                    <a href="{% url 'search' 'Anime' 'genre' 'Horror'%}">Horror</a>
+                </div>
+                <div>
+                    <a href="{% url 'search' 'Anime' 'genre' 'Mystery'%}">Mystery</a>
+                </div>
+            </div>
+            <div>
+                <div>
+                    <a href="{% url 'search' 'Anime' 'genre' 'Romance'%}">Romance</a>
+                </div>
+                <div>
+                    <a href="{% url 'search' 'Anime' 'genre' 'Sci-Fi'%}">Sci-Fi</a>
+                </div>
+                <div>
+                    <a href="{% url 'search' 'Anime' 'genre' 'Slice of Life'%}">Slice of Life</a>
+                </div>
+                <div>
+                    <a href="{% url 'search' 'Anime' 'genre' 'Sports'%}">Sports</a>
+                </div>
+                <div>
+                    <a href="{% url 'search' 'Anime' 'genre' 'Supernatural'%}">Supernatural</a>
+                </div>
+            </div>
+             <div>
+                <div>
+                    <a href="{% url 'search' 'Anime' 'genre' 'Suspense'%}">Suspense</a>
+                </div>
+             </div>
+        </div>
+    </div>
+    <div>
+        <div>
+            <label>Search by Themes</label>
+        </div>
+        <div class="searchItems">
+            <div>
+                <div>
+                    <a href="{% url 'search' 'Anime' 'themes' 'Adult Cast'%}">Adult Cast</a>
+                </div>
+                <div>
+                    <a href="{% url 'search' 'Anime' 'themes' 'Anthropomorphic'%}">Anthropomorphic</a>
+                </div>
+                <div>
+                    <a href="{% url 'search' 'Anime' 'themes' 'CGDCT'%}">CGDCT</a>
+                </div>
+                <div>
+                    <a href="{% url 'search' 'Anime' 'themes' 'Childcare'%}">Childcare</a>
+                </div>
+                <div>
+                    <a href="{% url 'search' 'Anime' 'themes' 'Combat Sports'%}">Combat Sports</a>
+                </div>
+            </div>
+            <div>
+                <div>
+                    <a  href="{% url 'search' 'Anime' 'themes' 'Crossdressing'%}">Crossdressing</a>
+                </div>
+                <div>
+                    <a  href="{% url 'search' 'Anime' 'themes' 'Delinquents'%}">Delinquents</a>
+                </div>
+                <div>
+                    <a href="{% url 'search' 'Anime' 'themes' 'Detective'%}">Detective</a>
+                </div>
+                <div>
+                    <a  href="{% url 'search' 'Anime' 'themes' 'Educational'%}">Educational</a>
+                </div>
+                <div>
+                    <a href="{% url 'search' 'Anime' 'themes' 'Gag Humor'%}">Gag Humor</a>
+                </div>
+            </div>
+            <div>
+                <div>
+                    <a href="{% url 'search' 'Anime' 'themes' 'Gore'%}">Gore</a>
+                </div>
+                <div>
+                    <a href="{% url 'search' 'Anime' 'themes' 'Harem'%}">Harem</a>
+                </div>
+                <div>
+                    <a href="{% url 'search' 'Anime' 'themes' 'High Stakes Game'%}">High Stakes Game</a>
+                </div>
+                <div>
+                    <a href="{% url 'search' 'Anime' 'themes' 'Historical'%}">Historical</a>
+                </div>
+                <div>
+                    <a href="{% url 'search' 'Anime' 'themes' 'Idols (Female)'%}">Idols (Female)</a>
+                </div>
+            </div>
+            <div>
+                <div>
+                    <a href="{% url 'search' 'Anime' 'themes' 'Idols (Male)'%}">Idols (Male)</a>
+                </div>
+                <div>
+                    <a href="{% url 'search' 'Anime' 'themes' 'Isekai'%}">Isekai</a>
+                </div>
+                <div>
+                    <a href="{% url 'search' 'Anime' 'themes' 'Iyashikei'%}">Iyashikei</a>
+                </div>
+                <div>
+                    <a href="{% url 'search' 'Anime' 'themes' 'Love Polygon'%}">Love Polygon</a>
+                </div>
+                <div>
+                    <a href="{% url 'search' 'Anime' 'themes' 'Magical Sex Shift'%}">Magical Sex Shift</a>
+                </div>
+            </div>
+            <div>
+                <div>
+                    <a href="{% url 'search' 'Anime' 'themes' 'Mahou Shoujo'%}">Mahou Shoujo</a>
+                </div>
+                <div>
+                    <a href="{% url 'search' 'Anime' 'themes' 'Martial Arts'%}">Martial Arts</a>
+                </div>
+                <div>
+                    <a  href="{% url 'search' 'Anime' 'themes' 'Mecha'%}">Mecha</a>
+                </div>
+                <div>
+                    <a href="{% url 'search' 'Anime' 'themes' 'Medical'%}">Medical</a>
+                </div>
+                <div>
+                    <a href="{% url 'search' 'Anime' 'themes' 'Military'%}">Military</a>
+                </div>
+            </div>
+            <div>
+                <div>
+                    <a href="{% url 'search' 'Anime' 'themes' 'Music'%}">Music</a>
+                </div>
+                <div>
+                    <a href="{% url 'search' 'Anime' 'themes' 'Mythology'%}">Mythology</a>
+                </div>
+                <div>
+                    <a href="{% url 'search' 'Anime' 'themes' 'Organized Crime'%}">Organized Crime</a>
+                </div>
+                <div>
+                    <a href="{% url 'search' 'Anime' 'themes' 'Otaku Culture'%}">Otaku Culture</a>
+                </div>
+                <div>
+                    <a href="{% url 'search' 'Anime' 'themes' 'Parody'%}">Parody</a>
+                </div>
+            </div>
+            <div>
+                <div>
+                    <a href="{% url 'search' 'Anime' 'themes' 'Perfmorming Arts'%}">Performing Arts</a>
+                </div>
+                <div>
+                    <a href="{% url 'search' 'Anime' 'themes' 'Pets'%}">Pets</a>
+                </div>
+                <div>
+                    <a href="{% url 'search' 'Anime' 'themes' 'Psychological'%}">Psychological</a>
+                </div>
+                <div>
+                    <a href="{% url 'search' 'Anime' 'themes' 'Racing'%}">Racing</a>
+                </div>
+                <div>
+                    <a href="{% url 'search' 'Anime' 'themes' 'Reincarnation'%}">Reincarnation</a>
+                </div>
+            </div>
+            <div>
+                <div>
+                    <a href="{% url 'search' 'Anime' 'themes' 'Reverse Harem'%}">Reverse Harem</a>
+                </div>
+                <div>
+                    <a href="{% url 'search' 'Anime' 'themes' 'Romantic Subtext'%}">Romantic Subtext</a>
+                </div>
+                <div>
+                    <a href="{% url 'search' 'Anime' 'themes' 'Samurai'%}">Samurai</a>
+                </div>
+                <div>
+                    <a href="{% url 'search' 'Anime' 'themes' 'School'%}">School</a>
+                </div>
+                <div>
+                    <a href="{% url 'search' 'Anime' 'themes' 'Showbiz'%}">Showbiz</a>
+                </div>
+            </div>
+            <div>
+                <div>
+                    <a href="{% url 'search' 'Anime' 'themes' 'Space'%}">Space</a>
+                </div>
+                <div>
+                    <a href="{% url 'search' 'Anime' 'themes' 'Strategy Game'%}">Strategy Game</a>
+                </div>
+                <div>
+                    <a href="{% url 'search' 'Anime' 'themes' 'Super Power'%}">Super Power</a>
+                </div>
+                <div>
+                    <a href="{% url 'search' 'Anime' 'themes' 'Survival'%}">Survival</a>
+                </div>
+                <div>
+                    <a href="{% url 'search' 'Anime' 'themes' 'Team Sports'%}">Team Sports</a>
+                </div>
+            </div>
+            <div>
+                <div>
+                    <a href="{% url 'search' 'Anime' 'themes' 'Time Travel'%}">Time Travel</a>
+                </div>
+                <div>
+                    <a href="{% url 'search' 'Anime' 'themes' 'Vampire'%}">Vampire</a>
+                </div>
+                <div>
+                    <a href="{% url 'search' 'Anime' 'themes' 'Video Game'%}">Video Game</a>
+                </div>
+                <div>
+                    <a href="{% url 'search' 'Anime' 'themes' 'Visual Arts'%}">Visual Arts</a>
+                </div>
+                <div>
+                    <a href="{% url 'search' 'Anime' 'themes' 'Workplace'%}">Workplace</a>
+                </div>
+            </div>
+            </div>
+        </div>
+        <div>
+        <div>
+            <label>Search by Demographics</label>
+        </div>
+        <div class="searchItems">
+            <div>
+                <div>
+                <a href="{% url 'search' 'Anime' 'demographics' 'Josei'%}">Josei</a>
+            </div>
+            <div>
+                <a href="{% url 'search' 'Anime' 'demographics' 'Kids'%}">Kids</a>
+            </div>
+            <div>
+                <a href="{% url 'search' 'Anime' 'demographics' 'Seinen'%}">Seinen</a>
+            </div>
+            <div>
+                <a href="{% url 'search' 'Anime' 'demographics' 'Shoujo'%}">Shoujo</a>
+            </div>
+            <div>
+                <a href="{% url 'search' 'Anime' 'demographics' 'Shounen'%}">Shounen</a>
+            </div>
+            </div>
+        </div>
+    </div>
+</div>
+{%endblock%}

@@ -1,0 +1,22 @@
+{%extends "aniuniverse/layout.html"%}
+{%block body%}
+<div style="display: flex; align-items: center;justify-content: center; flex-direction: column; height: 70vh;">
+    <div id="loginForm">
+        <div id="loginTitle">
+            <h2>
+                Register
+            </h2>
+            {%if error%}
+            <p class='errorMessage'>{{error}}</p>
+            {%endif %}
+        </div>
+        <div id="loginFields">
+            <form method="POST" name="login" enctype="multipart/form-data">
+                {% csrf_token %}
+                {{form.as_p}}
+                <button type="submit">Register</button>
+            </form>
+        </div>
+    </div>
+</div>
+{%endblock%}

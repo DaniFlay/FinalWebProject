@@ -1,0 +1,109 @@
+{%extends "aniuniverse/layout.html"%}
+{%block body%}
+<div id="search">
+    {%if anime is anime%}
+    <h2>{{name}} anime</h2>
+    {%else%}
+    <h2>{{name}} manga</h2>
+    {%endif%}
+    <div class="searchBody">
+            {%if animes%}
+            {%for anime in animes%}
+            <div class="searchItem">
+                <div >
+                    <a href="{% url 'animeItem' anime.anime_id%}">{{anime.title}}</a>
+                </div>
+                <div>
+                    <div>
+                        {{anime.animetype}}
+                    </div>
+                    <div>
+                        {{anime.state}}
+                    </div>
+                    <div>
+                        {{anime.episodes}} eps.
+                    </div>
+                </div>
+                <div>
+                    <div  class="searchItemPicture">
+                        <img src="{{anime.main_picture}}" width="200px" >
+                    </div>
+                    <div class="searchItemSynopsis">
+                        {{anime.synopsis}}
+                    </div>
+                </div>
+                <div>
+                    <div>
+                        Favorites: {{anime.favorites}}
+                    </div>
+                    <div>
+                        Score: {{anime.score}}
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+            {%else%}
+            {%for manga in mangas%}
+            <div class="searchItem">
+                <div>
+                    <a href="{% url 'mangaItem' manga.manga_id%}">{{manga.title}}</a>
+                </div>
+                <div>
+                    <div>
+                        {{manga.mangatype}}
+                    </div>
+                    <div>
+                        {{manga.status}}
+                    </div>
+                    <div>
+                        {{manga.volumes}} vol.
+                        {{manga.chapters}} ch.
+                    </div>
+                </div>
+                <div>
+                    <div class="searchItemPicture">
+                        <img src="{{manga.main_picture}}" width="200px">
+                    </div>
+                    <div class="searchItemSynopsis">
+                        {{manga.synopsis}}
+                    </div>
+                </div>
+                <div>
+                    <div>
+                        Favorites: {{manga.favorites}}
+                    </div>
+                    <div>
+                        Score: {{manga.score}}
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+            {%endif%}
+    </div>
+    {%if animes %}
+    <div id="paginator">
+        {%if animes.has_previous%}
+            <a href="?page=1">&laquo First</a>
+            <a href="?page={{animes.previous_page_number}}">Previous</a>
+        {%endif%}
+        <span class="current">Page {{animes.number}} of {{animes.paginator.num_pages}}</span>
+        {%if animes.has_next%}
+            <a href="?page={{animes.next_page_number}}">Next</a>
+            <a href="?page={{animes.paginator.num_pages}}">Last &raquo</a>
+        {% endif%}
+        </div>
+    {%else%}
+    <div id="paginator">
+        {%if mangas.has_previous%}
+            <a href="?page=1">&laquo First</a>
+            <a href="?page={{mangas.previous_page_number}}">Previous</a>
+        {%endif%}
+        <span class="current">Page {{mangas.number}} of {{mangas.paginator.num_pages}}</span>
+        {%if mangas.has_next%}
+            <a href="?page={{mangas.next_page_number}}">Next</a>
+            <a href="?page={{mangas.paginator.num_pages}}">Last &raquo</a>
+        {% endif%}
+        </div>
+        {%endif%}
+</div>
+{%endblock%}

@@ -1,0 +1,103 @@
+{%extends "aniuniverse/layout.html"%}
+{%load static%}
+{%block body%}
+<div id="topAnime">
+    <div id="topTabs">
+        <ul>
+            <li class="selected">
+                <a href="{% url 'topManga' 'all'%}">All manga</a>
+            </li>
+            <li>
+                <a href="{% url 'topManga' 'Manga'%}">Top manga</a>
+            </li>
+            <li>
+                <a href="{%url 'topManga' 'One-shot'%}">Top one-shots</a>
+            </li>
+            <li>
+                <a href="{% url 'topManga' 'Doujinshi'%}" >Top doujinshi</a>
+            </li>
+            <li>
+                <a href="{% url 'topManga' 'LightNovel'%}">Top light novels</a>
+            </li>
+            <li>
+                <a href="{% url 'topManga' 'Novel'%}">Top novels</a>
+            </li>
+            <li>
+                <a href="{% url 'topManga' 'Manhwa'%}">Top manhwa</a>
+            </li>
+            <li>
+                <a href="{% url 'topManga' 'Manhua'%}">Top manhua</a>
+            </li>
+            <li>
+                <a href="{% url 'topManga' 'Popular'%}">Most Popular</a>
+            </li>
+            <li>
+                <a href="{% url 'topManga' 'Favorites'%}">Most Favorites</a>
+            </li>
+        </ul>
+    </div>
+    <div id="rankingAnime" >
+        <div id="tableNames">
+            <div style="width: 10%;">
+                <a>Rating</a>
+            </div>
+            <div style="width: 70%;">
+                <a>Title</a>
+            </div>
+            <div style="width: 20%;">
+                <a>Score</a>
+            </div>
+        </div>
+        <ol class="orderedList">
+            {%for manga in mangas%}
+            <li id="rankItem">
+                <div class="number" style="width: 10%; font-weight: bold;">
+                    {{forloop.counter|add:mangas.start_index|add:"-1"}}
+                </div>
+                <div class="title" style="width: 70%;">
+                    <div>
+                        {%if manga.main_picture%}
+                        <img src="{{manga.main_picture}}" alt='Not Found 404' width="50px">
+                        {%else%}
+                        <img alt="Not Found 404" width="50px">
+                        {%endif%}
+                    </div>
+                    <div>
+                        <a href="{% url 'mangaItem' manga.manga_id%}" style="font-weight: bold; color: darkblue;">
+                            {{manga.title}}
+                        </a>
+                        <a style="font-size: 11px;">
+                            {{manga.published_from}}-
+                            {%if manga.published_to%}
+                            {{manga.published_to}}
+                            {%else%}?
+                            {%endif%}
+                        </a>
+                            <a style="font-size: 11px;">
+                                {{manga.mangatype}}
+                            </a>
+                            <a style="font-size: 11px;">
+                                {{manga.favorites}} favorites
+                            </a>
+                        </div>
+                    </div>
+                <div style="width: 20%; align-items: center; display:flex; justify-content: center;">
+                    <a style="font-weight: bold;">{{manga.score}}</a>
+                </div>
+            </li>
+            {% endfor%}
+        </ol>
+    </div>
+    <div id="paginator">
+    {%if mangas.has_previous%}
+        <a href="?page=1">&laquo First</a>
+        <a href="?page={{mangas.previous_page_number}}">Previous</a>
+    {%endif%}
+    <span class="current">Page {{mangas.number}} of {{mangas.paginator.num_pages}}</span>
+    {%if mangas.has_next%}
+        <a href="?page={{mangas.next_page_number}}">Next</a>
+        <a href="?page={{mangas.paginator.num_pages}}">Last &raquo</a>
+    {% endif%}
+    </div>
+</div>
+{%endblock%}

@@ -1,0 +1,173 @@
+{%extends "aniuniverse/layout.html"%}
+{%load static%}
+{%block body%}
+<div id="profilePage">
+    <div class="usernameDiv">
+        <h2>{{userProfile.user.username}}</h2>
+    </div>
+<div id="profile">
+    <div id="picStats">
+        <div id="profileImageDiv">
+            <img src="{%get_media_prefix%}{{userProfile.user.profilePicture}}">
+        </div>
+        <div id="allStats">
+            <div id="animeStats">
+                <label>Anime Stats</label>
+                <ul>
+                    <li>
+                        {%if watching == 0%}
+                        <a>Watching({{watching}})</a>
+                        {%else%}
+                        <a href="{%url 'animeList' user.get_username 'Watching'%}">Watching({{watching}})</a>
+                        {%endif%}
+                    </li>
+                    <li>
+                        {%if  completeAnime  == 0%}
+                        <a>Completed({{completeAnime}})</a>
+                        {%else%}
+                        <a href="{%url 'animeList' user.get_username 'Completed'%}">Completed({{completeAnime}})</a>
+                        {%endif%}
+                    </li>
+                    <li>
+                        {%if  droppedAnime  == 0%}
+                        <a>Dropped({{droppedAnime}})</a>
+                        {%else%}
+                        <a href="{%url 'animeList' user.get_username 'Dropped'%}">Dropped({{droppedAnime}})</a>
+                        {%endif%}
+                    </li>
+                    <li>
+                        {%if  plan_to_watch  == 0%}
+                        <a>Plan to Watch({{plan_to_watch}})</a>
+                        {%else%}
+                        <a href="{%url 'animeList' user.get_username 'Plan to Watch'%}">Plan to Watch({{plan_to_watch}})</a>
+                        {%endif%}
+                    </li>
+                    <li>
+                        {%if  onholdAnime == 0%}
+                        <a>On-hold({{onholdAnime}})</a>
+                        {%else%}
+                        <a href="{%url 'animeList' user.get_username 'On-Hold'%}">On-hold({{onholdAnime}})</a>
+                        {%endif%}
+                    </li>
+                </ul>
+            </div>
+            <div id="mangaStats">
+                <label>Manga Stats</label>
+                <ul>
+                    <li>
+                        {%if  reading  == 0%}
+                        <a>Reading({{reading}})</a>
+                        {%else%}
+                        <a href="{%url 'mangaList' user.get_username 'Reading'%}">Reading({{reading}})</a>
+                        {%endif%}
+                    </li>
+                    <li>
+                        {%if  completedManga  == 0%}
+                        <a>Completed({{completedManga}})</a>
+                        {%else%}
+                        <a href="{%url 'mangaList' user.get_username 'Completed'%}">Completed({{completedManga}})</a>
+                        {%endif%}
+                    </li>
+                    <li>
+                        {%if  droppedManga  == 0%}
+                        <a>Dropped({{droppedManga}})</a>
+                        {%else%}
+                        <a href="{%url 'mangaList' user.get_username 'Dropped'%}">Dropped({{droppedManga}})</a>
+                        {%endif%}
+                    </li>
+                    <li>
+                        {%if  plan_to_read  == 0%}
+                        <a>Plan to Read({{plan_to_read}})</a>
+                        {%else%}
+                        <a href="{%url 'mangaList' user.get_username 'Plan to Read'%}">Plan to Read({{plan_to_read}})</a>
+                        {%endif%}
+                    </li>
+                    <li>
+                        {%if  on_holdManga == 0%}
+                        <a>On-hold({{on_holdManga}})</a>
+                        {%else%}
+                        <a href="{%url 'mangaList' user.get_username 'On-Hold'%}">On-hold({{on_holdManga}})</a>
+                        {%endif%}
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <div id="additionalStats">
+            <label>General Stats</label>
+            <ul>
+                <li>
+                    {%if  total_anime  == 0%}
+                    <a>Total anime({{total_anime}})</a>
+                    {%else%}
+                    <a href="{%url 'animeList' user.get_username 'all'%}">All anime({{total_anime}})</a>
+                    {%endif%}
+                </li>
+                <li>
+                    {%if  total_manga == 0%}
+                    <a>Total manga({{total_manga}})</a>
+                    {%else%}
+                    <a href="{% url 'mangaList' user.get_username 'all'%}">All manga({{total_manga}})</a>
+                    {%endif%}
+                </li>
+                <li>
+                    {%if  total_favorite_anime  == 0%}
+                    <a>Total favorite anime({{total_favorite_anime}})</a>
+                    {%else%}
+                    <a href="{%url 'favoriteAnime' user.get_username%}">Favorite anime({{total_favorite_anime}})</a>
+                    {%endif%}
+                </li>
+                <li>
+                    {%if  total_favorite_manga  == 0%}
+                    <a>Total favorite manga({{total_favorite_manga}})</a>
+                    {%else%}
+                    <a href="{%url 'favoriteManga' user.get_username%}">Favorite manga({{total_favorite_manga}})</a>
+                    {%endif%}
+                </li>
+                <li>
+                    <a>Anime score: {{animeScore}}</a>
+                </li>
+                <li>
+                    <a>Manga score: {{mangaScore}}</a>
+                </li>
+                <li>
+                    <a>Total score: {{average_score}}</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+    <div id="favorites">
+        {%if favorite_anime%}
+        <div id="favoriteAnimes">
+            <div id="favoriteAnimesHeader">
+                <label>Favorite Animes</label>
+                <a href="{%url 'favoriteAnime' user.get_username%}">See all</a>
+            </div>
+            <div id="favoriteAnimeList">
+                {%for anime in favorite_anime%}
+                <div id="favoriteAnimeItem">
+                    <a href="{%url 'animeItem' anime.anime_id%}"><img src="{{anime.main_picture}}" ></a>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+        {%endif%}
+        {%if favorite_manga%}
+        <div id="favoriteMangas">
+            <div id="favoriteMangasHeader">
+                <label>Favorite Mangas</label>
+                <a href="{% url 'favoriteManga' user.get_username%}">See all</a>
+            </div>
+            <div id="favoriteMangaList">
+                {%for manga in favorite_manga%}
+                <div id="favoriteMangaItem">
+                    <a href="{%url 'mangaItem' manga.manga_id%}"><img src="{{manga.main_picture}}"></a>
+                </div>
+                {%endfor%}
+            </div>
+        </div>
+        {%endif%}
+    </div>
+</div>
+</div>
+
+{%endblock%}

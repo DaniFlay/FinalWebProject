@@ -1,0 +1,95 @@
+{%extends "aniuniverse/layout.html"%}
+{%block body%}
+<div class="homeDiv">
+    <div class="topDiv">
+        <span>The best anime</span>
+        <ul>
+            {% for anime in animes%}
+            <li>
+                <a href="{% url 'animeItem' anime.anime_id%}">
+                    <div class="item" data-id="{{anime.anime_id}}">
+                        <img src="{{anime.main_picture}}" class="imageList">
+                        <a>{{anime.title}}</a>
+                    </div>
+                </a>
+            </li>
+            {% endfor %}
+        </ul>
+    </div>
+    <div class="topDiv">
+        <span>The best manga</span>
+        <ul>
+            {% for manga in mangas%}
+            <li>
+                <a href="{% url 'mangaItem' manga.manga_id%}">
+                    <div class="item" data-id="{{manga.manga_id}}">
+                        <img src="{{manga.main_picture}}" class="imageList">
+                        <a>{{manga.title}}</a>
+                    </div>
+                </a>
+            </li>
+            {% endfor %}
+        </ul>
+    </div>
+    <div class="topDiv">
+        <span>The best OVAs</span>
+        <ul>
+            {% for ova in ovas%}
+            <li>
+                <a href="{% url 'animeItem' ova.anime_id%}">
+                    <div class="item" data-id= '{{ova.anime_id}}'>
+                        <img src="{{ova.main_picture}}" class="imageList">
+                        <a>{{ova.title}}</a>
+                    </div>
+                </a>
+            </li>
+            {% endfor %}
+        </ul>
+    </div>
+    <div class="topDiv">
+        <span>The best airing anime</span>
+        <ul>
+            {% for animeAired in animesAired%}
+            <li>
+                <a href="{% url 'animeItem' animeAired.anime_id%}">
+                    <div class="item" data-id="{{animeAired.anime_id}}">
+                        <img src="{{animeAired.main_picture}}" class="imageList">
+                        <a>{{animeAired.title}}</a>
+                    </div>
+                </a>
+            </li>
+            {% endfor %}
+        </ul>
+    </div>
+    <div class="topDiv">
+        <span>The best movies</span>
+        <ul>
+            {% for movie in movies%}
+            <li>
+                <a href="{% url 'animeItem' movie.anime_id%}">
+                    <div class="item" data-id="{{movie.anime_id}}">
+                        <img src="{{movie.main_picture}}" class="imageList">
+                        <a>{{movie.title}}</a>
+                    </div>
+                </a>
+            </li>
+            {% endfor %}
+        </ul>
+    </div>
+    <div class="topDiv">
+        <span>The best publishing manga</span>
+        <ul>
+            {% for manga in publishingMangas%}
+            <li>
+                <a href="{% url 'mangaItem' manga.manga_id%}">
+                    <div class="item" data-id="{{manga.manga_id}}">
+                        <img src="{{manga.main_picture}}" class="imageList">
+                        <a>{{manga.title}}</a>
+                    </div>
+                </a>
+            </li>
+            {% endfor %}
+        </ul>
+    </div>
+</div>
+{%endblock%}
